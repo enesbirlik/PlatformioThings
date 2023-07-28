@@ -53,9 +53,9 @@ void loop() {
         break;
       case '3':
         servo_leg_l3.write(aci);
-        aci++;
         Serial.print("\naci degeri: ");
         Serial.print(aci);
+        aci++;
         break;
       default:
         Serial.print("\nGecersiz komut");
@@ -72,19 +72,19 @@ void pose_main() {
 
   servo_leg_r1.write(90);
   servo_leg_l1.write(90);
-  delay(150);
+  delay(15);
   servo_leg_r2.write(150);
   servo_leg_l2.write(30);
-  delay(150);
+  delay(15);
   servo_leg_r3.write(150);
   servo_leg_l3.write(30);
-  delay(150);
+  delay(15);
   servo_leg_r4.write(30);
   servo_leg_l4.write(150);
-  delay(150);
+  delay(15);
   servo_blg_r1.write(90);
   servo_blg_l1.write(90);
-  delay(150);
+  delay(15);
   // servo_arm_r1.write(30);
   // servo_arm_r2.write(30);
 
@@ -95,19 +95,19 @@ void pose_sit() {
 
   servo_leg_r1.write(90);
   servo_leg_l1.write(90);
-  delay(150);
+  delay(15);
   servo_leg_r2.write(70);
   servo_leg_l2.write(110);
-  delay(150);
+  delay(15);
   servo_leg_r3.write(60);
   servo_leg_l3.write(120);
-  delay(150);
+  delay(15);
   servo_leg_r4.write(30);
   servo_leg_l4.write(150);
-  delay(150);
+  delay(15);
   servo_blg_r1.write(90);
   servo_blg_l1.write(90);
-  delay(150);
+  delay(15);
   // servo_arm_r1.write(30);
   // servo_arm_r2.write(60);
   
