@@ -27,11 +27,10 @@ void setup() {
   servo_leg_r3.attach(8);
   servo_leg_r4.attach(22);
   servo_leg_r5.attach(23);
-  //sürücü ile tesr edicem şimdi
   //servo_blg_r1.attach(5);
 
   servo_leg_l1.attach(1);
-  servo_leg_l2.attach(0);
+  servo_leg_l2.attach(2);
   servo_leg_l3.attach(3);
   servo_leg_l4.attach(4);
   servo_leg_l5.attach(5);
@@ -61,7 +60,38 @@ void loop() {
         Serial.print("\naci degeri: ");
         Serial.print(aci);
         aci++;
-        servo_leg_l1.write(0);
+        break;
+      case 'a':
+        servo_leg_r1.write(90);
+        servo_leg_r2.write(150);
+        servo_leg_r3.write(150);
+        servo_leg_r4.write(30);
+        servo_leg_r5.write(90);
+        delay(15);
+        break;
+      case 's':
+        servo_leg_r1.write(90);
+        servo_leg_r2.write(70);
+        servo_leg_r3.write(60);
+        servo_leg_r4.write(30);
+        servo_leg_r5.write(90);
+        delay(15);
+        break;
+      case 'k':
+        servo_leg_l1.write(90);
+        servo_leg_l2.write(30);
+        servo_leg_l3.write(30);
+        servo_leg_l4.write(150);
+        servo_leg_l5.write(90);
+        delay(15);
+        break;
+      case 'l':
+        servo_leg_l1.write(90);
+        servo_leg_l2.write(110);
+        servo_leg_l3.write(120);
+        servo_leg_l4.write(150);
+        servo_leg_l5.write(90);
+        delay(15);
         break;
       default:
         Serial.print("\nGecersiz komut");
@@ -78,19 +108,19 @@ void pose_main() {
 
   servo_leg_r1.write(90);
   servo_leg_l1.write(90);
-  delay(15);
+  delay(100);
   servo_leg_r2.write(150);
   servo_leg_l2.write(30);
-  delay(15);
+  delay(100);
   servo_leg_r3.write(150);
   servo_leg_l3.write(30);
-  delay(15);
+  delay(100);
   servo_leg_r4.write(30);
   servo_leg_l4.write(150);
-  delay(15);
+  delay(100);
   servo_leg_r5.write(90);
   servo_leg_l5.write(90);
-  delay(15);
+  delay(100);
   // servo_arm_r1.write(30);
   // servo_arm_r2.write(30);
 
@@ -101,19 +131,19 @@ void pose_sit() {
 
   servo_leg_r1.write(90);
   servo_leg_l1.write(90);
-  delay(15);
+  delay(100);
   servo_leg_r2.write(70);
   servo_leg_l2.write(110);
-  delay(15);
+  delay(100);
   servo_leg_r3.write(60);
   servo_leg_l3.write(120);
-  delay(15);
+  delay(100);
   servo_leg_r4.write(30);
   servo_leg_l4.write(150);
-  delay(15);
+  delay(100);
   servo_leg_r5.write(90);
   servo_leg_l5.write(90);
-  delay(15);
+  delay(100);
   // servo_arm_r1.write(30);
   // servo_arm_r2.write(60);
   
