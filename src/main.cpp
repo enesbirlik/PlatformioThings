@@ -1,152 +1,80 @@
 #include <Arduino.h>
 #include <PWMServo.h>
 
-PWMServo servo_leg_r1;
-PWMServo servo_leg_r2;
-PWMServo servo_leg_r3;
-PWMServo servo_leg_r4;
-PWMServo servo_leg_r5;
-PWMServo servo_blg_r1;
-PWMServo servo_arm_r2;
-PWMServo servo_arm_r1;
+const int numLegServos = 12;
 
-PWMServo servo_leg_l1;
-PWMServo servo_leg_l2;
-PWMServo servo_leg_l3;
-PWMServo servo_leg_l4;
-PWMServo servo_leg_l5;
-PWMServo servo_blg_l1;
+// Servo isimlerini burada tanımlayın
+enum LegServoName {
+  leg_r1, leg_r2, leg_r3, leg_r4, leg_r5, blg_r1,
+  leg_l1, leg_l2, leg_l3, leg_l4, leg_l5, blg_l1
+};
+PWMServo legServos[numLegServos];
 
 void pose_main();
 void pose_sit();
+void move_servos_to(LegServoName servoNames[], int positions[], int duration);
 
 void setup() {
   Serial.begin(9600);
-  servo_leg_r1.attach(10);
-  servo_leg_r2.attach(11);
-  servo_leg_r3.attach(8);
-  servo_leg_r4.attach(22);
-  servo_leg_r5.attach(23);
-  //servo_blg_r1.attach(5);
 
-  servo_leg_l1.attach(1);
-  servo_leg_l2.attach(2);
-  servo_leg_l3.attach(3);
-  servo_leg_l4.attach(4);
-  servo_leg_l5.attach(5);
+  // Servo pin numaralarını burada düzenleyin
+  int legServoPins[] = {5, 4, 3, 2, 1, 23, 11, 10, 9, 8, 7, 22};
 
-
-  //servo_blg_l1.attach(12);
-
-  // servo_arm_r2.attach(5);
-  // servo_arm_r1.attach(6);
+  for (int i = 0; i < numLegServos; i++) {
+    legServos[i].attach(legServoPins[i]);
+  }
 }
-int aci = 0;
 
 void loop() {
   if (Serial.available() > 0) {
     char command = Serial.read();
     switch (command) {
-      case '1':
-        pose_main();
-        aci = 30;
-        break;
-      case '2':
-        pose_sit();
-        aci = 120;
-        break;
-      case '3':
-        servo_leg_l3.write(aci);
-        Serial.print("\naci degeri: ");
-        Serial.print(aci);
-        aci++;
-        break;
       case 'a':
-        servo_leg_r1.write(90);
-        servo_leg_r2.write(150);
-        servo_leg_r3.write(150);
-        servo_leg_r4.write(30);
-        servo_leg_r5.write(90);
-        delay(15);
+        pose_main();
         break;
       case 's':
-        servo_leg_r1.write(90);
-        servo_leg_r2.write(70);
-        servo_leg_r3.write(60);
-        servo_leg_r4.write(30);
-        servo_leg_r5.write(90);
-        delay(15);
-        break;
-      case 'k':
-        servo_leg_l1.write(90);
-        servo_leg_l2.write(30);
-        servo_leg_l3.write(30);
-        servo_leg_l4.write(150);
-        servo_leg_l5.write(90);
-        delay(15);
-        break;
-      case 'l':
-        servo_leg_l1.write(90);
-        servo_leg_l2.write(110);
-        servo_leg_l3.write(120);
-        servo_leg_l4.write(150);
-        servo_leg_l5.write(90);
-        delay(15);
+        pose_sit();
         break;
       default:
-        Serial.print("\nGecersiz komut");
+        Serial.println("\nInvalid command");
         break;
     }
   }
-  // servo_leg_l1.write(90);
-
 }
 
-
-
 void pose_main() {
-
-  servo_leg_r1.write(90);
-  servo_leg_l1.write(90);
-  delay(100);
-  servo_leg_r2.write(150);
-  servo_leg_l2.write(30);
-  delay(100);
-  servo_leg_r3.write(150);
-  servo_leg_l3.write(30);
-  delay(100);
-  servo_leg_r4.write(30);
-  servo_leg_l4.write(150);
-  delay(100);
-  servo_leg_r5.write(90);
-  servo_leg_l5.write(90);
-  delay(100);
-  // servo_arm_r1.write(30);
-  // servo_arm_r2.write(30);
-
-  Serial.print("\nmain pose");
+  LegServoName servoNames[] = {leg_r1, leg_r2, leg_r3, leg_r4, leg_r5, blg_r1, leg_l1, leg_l2, leg_l3, leg_l4, leg_l5, blg_l1};
+  int positions[] = {90, 150, 150, 30, 90, 90, 90, 30, 30, 150, 90, 90};
+  move_servos_to(servoNames, positions, 1000);
+  Serial.println("\nmain pose");
 }
 
 void pose_sit() {
+  LegServoName servoNames[] = {leg_r1, leg_r2, leg_r3, leg_r4, leg_r5, blg_r1, leg_l1, leg_l2, leg_l3, leg_l4, leg_l5, blg_l1};
+  int positions[] = {90, 70, 60, 30, 90, 90, 90, 110, 120, 150, 90, 90};
+  move_servos_to(servoNames, positions, 1000);
+  Serial.println("\nsit pose");
+}
 
-  servo_leg_r1.write(90);
-  servo_leg_l1.write(90);
-  delay(100);
-  servo_leg_r2.write(70);
-  servo_leg_l2.write(110);
-  delay(100);
-  servo_leg_r3.write(60);
-  servo_leg_l3.write(120);
-  delay(100);
-  servo_leg_r4.write(30);
-  servo_leg_l4.write(150);
-  delay(100);
-  servo_leg_r5.write(90);
-  servo_leg_l5.write(90);
-  delay(100);
-  // servo_arm_r1.write(30);
-  // servo_arm_r2.write(60);
-  
+void move_servos_to(LegServoName servoNames[], int positions[], int duration) {
+  int startPositions[numLegServos];
+  for (int i = 0; i < numLegServos; i++) {
+    startPositions[i] = legServos[servoNames[i]].read();
+  }
 
-  Serial.print("\nsit pose");
+  unsigned long startTime = millis();
+  unsigned long endTime = startTime + duration;
+
+  while (millis() < endTime) {
+    float progress = (millis() - startTime) / (float)duration;
+    for (int i = 0; i < numLegServos; i++) {
+      int pos = startPositions[i] + (positions[i] - startPositions[i]) * progress;
+      legServos[servoNames[i]].write(pos);
+    }
+    delay(15); // A small delay to smooth the motion
+  }
+
+  for (int i = 0; i < numLegServos; i++) {
+    legServos[servoNames[i]].write(positions[i]);
+  }
 }
